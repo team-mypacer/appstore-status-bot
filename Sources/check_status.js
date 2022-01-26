@@ -32,7 +32,7 @@ function checkVersion(app) {
 
     const db = dirty('store.db').on('load', function(){
         var lastAppInfo = db.get(appInfoKey); 
-        if(!lastAppInfo || lastAppInfo.status != app.status || lastAppInfo.version != app.status) {
+        if(!lastAppInfo || lastAppInfo.status != app.status) {
 
             console.log("[*] status is different");
             slack.post(app, db.get(submissionStartKey))
