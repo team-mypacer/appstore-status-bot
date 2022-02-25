@@ -9,7 +9,9 @@ const env = Object.create(process.env);
 const octokit = new Octokit({ auth: `token ${process.env.GH_TOKEN}` });
 
 
-getGist().then(() => {
+getGist();
+
+function checkApp() {
     exec('ruby Sources/fetch_app_status.rb', { env: env }, function (err, stdout, stderr) {
 
         if (stdout) {
@@ -25,7 +27,7 @@ getGist().then(() => {
         }
 
     });
-});
+}
 
 function checkVersion(app) {
 
@@ -84,6 +86,8 @@ async function getGist() {
             console.log("[*] file saved!");
         });
     });
+    
+    checkApp();
 }
 
 async function updateGist(content) {
